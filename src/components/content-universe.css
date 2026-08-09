@@ -1,0 +1,115 @@
+.universe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.universe-card {
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.universe-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.universe-card > p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.universe-visual {
+  width: 100%;
+  height: 170px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.visual-emoji {
+  position: absolute;
+  font-size: 92px;
+  opacity: 0.22;
+  filter: blur(1px);
+}
+
+.card-podcast .universe-visual {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(58, 130, 255, 0.35), transparent 55%),
+    linear-gradient(160deg, #0c1730, #060c18);
+}
+
+.podcast-logo {
+  position: relative;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.02;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+}
+
+.podcast-logo em,
+.lig-title em {
+  font-style: normal;
+  color: var(--green);
+}
+
+.card-clips .universe-visual {
+  background:
+    radial-gradient(circle at 25% 75%, rgba(39, 229, 127, 0.22), transparent 55%),
+    linear-gradient(200deg, #101a2e, #060c18);
+}
+
+.clips-title {
+  position: relative;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+
+.card-lig {
+  border-color: var(--green-line);
+  box-shadow: 0 0 40px rgba(39, 229, 127, 0.08) inset;
+}
+
+.card-lig .universe-visual {
+  background:
+    radial-gradient(circle at 60% 30%, rgba(39, 229, 127, 0.3), transparent 60%),
+    linear-gradient(160deg, #0a2015, #060c18);
+}
+
+.lig-title {
+  position: relative;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 38px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+  text-shadow: 0 0 30px rgba(39, 229, 127, 0.55);
+}
+
+@media (max-width: 960px) {
+  .universe-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,175 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0;
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+.hero-glow-green {
+  width: 480px;
+  height: 480px;
+  top: -180px;
+  left: -140px;
+  background: rgba(39, 229, 127, 0.14);
+}
+
+.hero-glow-blue {
+  width: 560px;
+  height: 560px;
+  top: -100px;
+  right: -160px;
+  background: rgba(58, 130, 255, 0.16);
+}
+
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font-size: clamp(40px, 4.6vw, 62px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin: 0 0 24px;
+}
+
+.hero-copy h1 em {
+  font-style: italic;
+  color: var(--green);
+  text-shadow: 0 0 32px rgba(39, 229, 127, 0.45);
+}
+
+.hero-lead {
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.stat-icon {
+  color: var(--green);
+  display: grid;
+  place-items: center;
+}
+
+.stat-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stat-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.stat-text strong {
+  font-family: var(--heading);
+  font-size: 14px;
+}
+
+.stat-text small {
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+/* ---- güncel bölüm kartı (Instagram reel) ---- */
+
+.episode-card {
+  width: 380px;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+/* embed'in üst, alt, sağ ve solunda 20'şer piksel boşluk */
+.reel-embed {
+  padding: 20px;
+  background:
+    radial-gradient(circle at 70% 10%, rgba(58, 130, 255, 0.25), transparent 55%),
+    radial-gradient(circle at 20% 90%, rgba(39, 229, 127, 0.15), transparent 50%),
+    linear-gradient(160deg, #0a1a36 0%, #050b18 75%);
+}
+
+.reel-embed iframe {
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: 0;
+  border-radius: 14px;
+  background: #0a1120;
+}
+
+.episode-body {
+  padding: 14px 20px 16px;
+}
+
+.episode-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  background: none;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.platform:hover {
+  color: var(--text);
+}
+
+@media (max-width: 960px) {
+  .hero {
+    padding-top: 48px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .reel-embed iframe {
+    height: 560px;
+  }
+}

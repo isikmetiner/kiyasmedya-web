@@ -67,3 +67,16 @@ mv public/og-kapak.png public/og.png
 
 `og:image` **mutlak adres** olmak zorunda; `index.html`'de `https://kiyasmedya.com/og.png`
 yazılı. Alan adı değişirse orayı da güncelleyin.
+
+## Yayın
+
+Site GitHub Pages'te. `main`'e her push, `.github/workflows/deploy.yml`
+iş akışını tetikler: `npm ci` → `npm run lint` → `npm run build` → `dist/`
+Pages'e yüklenir. Lint hata verirse yayın durur.
+
+Alan adı `public/CNAME` dosyasında yazılı; `public/` içeriği `dist/`e
+olduğu gibi kopyalandığı için her derlemede yerinde kalır. Alan adı
+değişirse burayı, `index.html`'deki mutlak adresleri, `robots.txt`'yi ve
+`sitemap.xml`'i birlikte güncelleyin.
+
+Elle tetiklemek için: Actions sekmesi → Yayınla → Run workflow.

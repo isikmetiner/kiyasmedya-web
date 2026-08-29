@@ -1,61 +1,36 @@
 import './about.css'
 
-const VALUES = [
-  {
-    emoji: '🎙️',
-    title: 'Cesur Yorum',
-    desc: 'Gündemi tekrar etmeyen, kendi duruşu olan içerikler.',
-  },
-  {
-    emoji: '📈',
-    title: 'Veriye Dayalı Analiz',
-    desc: 'His değil istatistik; iddia değil kıyas.',
-  },
-  {
-    emoji: '🤝',
-    title: 'Topluluk Odaklı',
-    desc: 'İçeriği izleyiciyle birlikte üreten bir kültür.',
-  },
-]
-
 export default function About() {
   return (
-    <section className="section" id="hakkimizda">
-      <div className="container">
-        <div className="section-head">
-          <span className="section-title">
-            <span className="dot" />
-            Hakkımızda
-          </span>
-        </div>
+    <section className="blok blok-krem" id="hakkimizda">
+      <p className="blok-index">Hakkımızda</p>
 
-        <div className="about-panel">
-          <div className="about-copy">
-            <h2>
-              "Sporu sadece konuşmayalım, <em>kıyaslayalım</em>" fikriyle yola
-              çıktık.
-            </h2>
-            <p>
-              Kıyas Medya, Kıyas Podcast'ten doğdu. Bugün futboldan basketbola
-              sporun her alanında podcast, kısa format ve özgün yapımlar üreten
-              yeni nesil bir medya ve prodüksiyon şirketiyiz. Amacımız aynı:
-              sporu daha derin, daha dürüst ve daha eğlenceli bir gözle ele
-              almak.
-            </p>
+      <div className="about-panel">
+        <p className="about-lead">
+          Kıyas Medya; sporun pasif bir izleyici deneyiminden çıkıp,
+          interaktif bir tutkuya dönüşmesi gerektiğine inanan yeni nesil bir
+          dijital spor ekosistemidir.
+        </p>
+
+        <dl className="about-hedefler">
+          <div className="about-hedef">
+            <dt>Vizyonumuz</dt>
+            <dd>
+              Prodüksiyon ve mobil teknolojiler ile sporu aktif bir kültüre
+              dönüştürerek uluslararası dijital spor ekosistemi olmaktır.
+            </dd>
           </div>
 
-          <div className="about-values">
-            {VALUES.map((v) => (
-              <article className="about-value" key={v.title}>
-                <span className="about-emoji" aria-hidden="true">
-                  {v.emoji}
-                </span>
-                <h3>{v.title}</h3>
-                <p>{v.desc}</p>
-              </article>
-            ))}
+          <div className="about-hedef">
+            <dt>Misyonumuz</dt>
+            <dd>
+              Yaratıcı oyunlar ve cesur yorumlar ile veriye dayalı içerikler
+              üretmek; geliştirdiğimiz teknolojiler ile sporseverlere
+              interaktif bir rekabet deneyimi, markalara ise organik ve
+              yüksek etkileşimli bir topluluk sunmaktır.
+            </dd>
           </div>
-        </div>
+        </dl>
       </div>
     </section>
   )

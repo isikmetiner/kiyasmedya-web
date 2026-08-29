@@ -1,16 +1,48 @@
-# React + Vite
+# Kıyas Medya — kurumsal site
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Tek sayfalık tanıtım sitesi. React 19 + Vite 8, ek bağımlılık yok:
+yönlendirme, durum yönetimi ve UI kütüphanesi kullanılmıyor.
 
-Currently, two official plugins are available:
+## Çalıştırma
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # dist/
+npm run preview  # dist/ önizlemesi
+npm run lint     # oxlint
+```
 
-## React Compiler
+## Yapı
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Sayfa, arka arkaya gelen **tam genişlikte renk bloklarından** oluşuyor.
+Ortalanmış bir kolon yok; her bölüm ekranın iki kenarına da değiyor ve
+yatay nefesini `--pad-x` jetonundan alıyor.
 
-## Expanding the Oxlint configuration
+| Bölüm | Bileşen | Tema |
+| --- | --- | --- |
+| Ana Sayfa | `Hero.jsx` | lacivert |
+| Kıyas Podcast | `KiyasPodcast.jsx` | krem |
+| Kıyas Lig | `KiyasLig.jsx` | lacivert |
+| Hakkımızda | `About.jsx` | krem |
+| İletişim | `Contact.jsx` | lacivert |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Ana Sayfa dışındaki blokların yüksekliği `main` üzerindeki ızgarayla
+eşitleniyor (`grid-auto-rows: 1fr`), bölüm sayısından bağımsız olarak.
+
+### Blok teması nasıl çalışıyor
+
+`index.css`'teki `.blok-krem` gibi sınıflar `--text`, `--muted`, `--line`
+jetonlarını **kendi içinde yeniden tanımlıyor**. Bileşenler hangi zeminde
+olduklarını bilmek zorunda değil; `var(--text)` okuyan her şey doğru
+renge dönüyor.
+
+Bir tuzak var: `color` kalıtımla iner ve `var(--text)`'i yeniden çözmez.
+Bu yüzden `.blok` kendi mürekkebini `color: var(--text)` ile yeniden
+bağlıyor. Bu satır silinirse krem bloklarda, rengini açıkça yazmayan her
+metin gövdeden gelen beyazı miras alır ve zeminde kaybolur.
+
+## Veri
+
+Sosyal medya sayıları `KiyasPodcast.jsx` içindeki `PLATFORMLAR` dizisinde,
+elle güncelleniyor. Sayfada başka bir yerde tekrar etmiyorlar.

@@ -1,175 +1,99 @@
+/* ==================================================================
+   Hero — ilk renk bloğu (lacivert)
+
+   Eskiden hero, 1200 pikselik ortalanmış bir kolonun içindeydi; geniş
+   ekranda sağda solda boşluk kalıyordu. Artık blok ekranın iki kenarına
+   da değiyor, nefesini --pad-x'ten alıyor.
+
+   Yükseklik 100vh DEĞİL. Tam ekran yüksekliği mobil tarayıcılarda adres
+   çubuğu yüzünden zıplıyor ve kısa ekranlarda içeriği eziyor; onun yerine
+   alt ve üst sınırı olan bir aralık veriyoruz.
+   ================================================================== */
+
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 72px 0;
+  background: var(--navy);
+  padding-block: clamp(64px, 9vh, 116px);
+  min-height: clamp(620px, 92svh, 940px);
+  display: flex;
+  flex-direction: column;
 }
 
-.hero-glow {
+/* Logodaki top, sağ kenardan taşan filigran olarak. Tıklamayı engellemesin
+   diye pointer-events kapalı; opaklık bilerek çok düşük — okunacak bir şey
+   değil, zemine derinlik veren bir doku. */
+.hero-watermark {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
+  top: 50%;
+  left: 50%;
+  width: clamp(420px, 58vw, 900px);
+  transform: translate(-50%, -52%);
+  opacity: 0.055;
   pointer-events: none;
+  user-select: none;
 }
 
-.hero-glow-green {
-  width: 480px;
-  height: 480px;
-  top: -180px;
-  left: -140px;
-  background: rgba(39, 229, 127, 0.14);
+.hero-watermark svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.hero-glow-blue {
-  width: 560px;
-  height: 560px;
-  top: -100px;
-  right: -160px;
-  background: rgba(58, 130, 255, 0.16);
-}
-
-.hero-inner {
+/* Sağdaki oynatıcı ve alttaki bantlar kalkınca hero tek sütuna indi;
+   metin, bloğun kalan yüksekliğinde dikey ortada duruyor.
+   min-width:0 hâlâ gerekli: dev puntolu "konuşmuyoruz." tek başına
+   kutuyu dışarı itebiliyor. */
+.hero-copy {
   position: relative;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 64px;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  /* justify-content dikeyde, align-items yatayda ortalıyor. */
+  justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
-.hero-copy h1 {
-  font-size: clamp(40px, 4.6vw, 62px);
+/* Blok tipografisinin kalbi: büyük punto, sıkı satır aralığı, negatif
+   harf aralığı. line-height 1'in altında olduğu için satırlar birbirine
+   kenetleniyor ve başlık bir "duvar" gibi duruyor. */
+.hero h1 {
+  font-size: clamp(44px, 7.6vw, 118px);
   font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  margin: 0 0 24px;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  /* text-wrap: balance kaldırıldı: satır sonları <br> ile elle
+     veriliyor, dengeleme bunları yeniden kırıyordu. nowrap da değil —
+     .hero'da overflow:hidden var, sığmayan satır kırpılırdı. */
+  margin: 0 0 clamp(22px, 3vh, 34px);
 }
 
-.hero-copy h1 em {
+.hero h1 em {
   font-style: italic;
   color: var(--green);
-  text-shadow: 0 0 32px rgba(39, 229, 127, 0.45);
 }
 
 .hero-lead {
-  color: var(--muted);
-  font-size: 16px;
-  max-width: 480px;
-  margin-bottom: 36px;
+  color: rgba(233, 238, 249, 0.66);
+  font-size: clamp(14.5px, 1.05vw, 17px);
+  line-height: 1.62;
+  max-width: 66ch;
+  margin: 0;
 }
 
-.hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* ---- dar ekran ---- */
+
+@media (max-width: 980px) {
+  .hero-watermark {
+    opacity: 0.04;
+  }
 }
 
-.stat {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  white-space: nowrap;
-}
-
-.stat-icon {
-  color: var(--green);
-  display: grid;
-  place-items: center;
-}
-
-.stat-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.stat-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.stat-text strong {
-  font-family: var(--heading);
-  font-size: 14px;
-}
-
-.stat-text small {
-  font-size: 10.5px;
-  color: var(--muted);
-}
-
-/* ---- güncel bölüm kartı (Instagram reel) ---- */
-
-.episode-card {
-  width: 380px;
-  max-width: 100%;
-  margin-inline: auto;
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--line-strong);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-}
-
-/* embed'in üst, alt, sağ ve solunda 20'şer piksel boşluk */
-.reel-embed {
-  padding: 20px;
-  background:
-    radial-gradient(circle at 70% 10%, rgba(58, 130, 255, 0.25), transparent 55%),
-    radial-gradient(circle at 20% 90%, rgba(39, 229, 127, 0.15), transparent 50%),
-    linear-gradient(160deg, #0a1a36 0%, #050b18 75%);
-}
-
-.reel-embed iframe {
-  display: block;
-  width: 100%;
-  height: 600px;
-  border: 0;
-  border-radius: 14px;
-  background: #0a1120;
-}
-
-.episode-body {
-  padding: 14px 20px 16px;
-}
-
-.episode-platforms {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.platform {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-  background: none;
-  padding: 0;
-  transition: color 0.15s ease;
-}
-
-.platform:hover {
-  color: var(--text);
-}
-
-@media (max-width: 960px) {
+@media (max-width: 620px) {
   .hero {
-    padding-top: 48px;
-  }
-
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .reel-embed iframe {
-    height: 560px;
+    min-height: 0;
   }
 }

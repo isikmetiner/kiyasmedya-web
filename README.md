@@ -46,3 +46,24 @@ metin gövdeden gelen beyazı miras alır ve zeminde kaybolur.
 
 Sosyal medya sayıları `KiyasPodcast.jsx` içindeki `PLATFORMLAR` dizisinde,
 elle güncelleniyor. Sayfada başka bir yerde tekrar etmiyorlar.
+
+## Yayın dosyaları
+
+`public/` içindekiler `dist/`e olduğu gibi kopyalanır:
+
+| Dosya | İşi |
+| --- | --- |
+| `favicon.svg` | Tarayıcı sekmesi ikonu |
+| `og.png` | Bağlantı önizleme kapağı (1200×630) |
+| `robots.txt` | Tarayıcı botlarına izin + sitemap adresi |
+| `sitemap.xml` | Tek sayfalık site haritası |
+
+Önizleme kapağını yeniden üretmek için (kaynak: `og-kapak.svg`):
+
+```bash
+npx --yes sharp-cli -i og-kapak.svg -o public/ -f png resize 1200 630
+mv public/og-kapak.png public/og.png
+```
+
+`og:image` **mutlak adres** olmak zorunda; `index.html`'de `https://kiyasmedya.com/og.png`
+yazılı. Alan adı değişirse orayı da güncelleyin.

@@ -1,0 +1,33 @@
+/* Yükseklik artık index.css'teki main ızgarasından geliyor (bütün
+   bloklar eşit). Buradaki iş yalnızca içeriği o yüksekliğe yaymak. */
+.lig-blok {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Etiket sol üstte kalıyor (diğer bölümlerle aynı); ortalanan başlık ve
+   açıklama. Kalan yüksekliği bu sarmalayıcı kaplıyor ve içeriğini iki
+   eksende de ortalıyor. */
+.lig-orta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.lig-orta .blok-baslik {
+  /* Alt boşluk artık açıklamayı ayırıyor; 18ch sınırı da gereksiz,
+     metin kısa ve ortalı. */
+  margin: 0 0 clamp(16px, 2.4vh, 26px);
+  max-width: none;
+  color: var(--green);
+}
+
+.lig-aciklama {
+  color: var(--muted);
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.6;
+  max-width: 54ch;
+}

@@ -1,49 +1,73 @@
+/* Bloğun içinde ayrıca kart yok: blok zaten kartın kendisi,
+   içine bir kutu daha koymak bloğu ikiye bölerdi. */
 .contact-simple {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 12px;
-  padding: 24px;
-  border-radius: 20px;
-  background: var(--card);
-  border: 1px solid var(--line);
+  align-items: flex-start;
+  gap: 14px;
 }
 
+/* Başlık ve alt metin tek satırda kalmalı. Genişlik kısıtları bu yüzden
+   kalktı; puntonun alt sınırı da dar ekranda satırın sığacağı orana
+   çekildi (5.2vw'de metin, bloğun yatay boşluğu düşülmüş genişliğine
+   her ölçüde sığıyor — sığmayan tek şey clamp'in 32px'lik tabanıydı). */
 .contact-simple h2 {
-  font-size: clamp(24px, 2.6vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  white-space: nowrap;
+  /* .blok-baslik'in 18ch sınırı kutu genişliğidir, sarma sınırı değil;
+     nowrap ile metin kutunun dışına taşardı. */
+  max-width: none;
+  font-size: min(
+    clamp(20px, 5.2vw, 76px),
+    calc((100vw - 2 * var(--pad-x)) / 11)
+  );
 }
 
 .contact-simple p {
   color: var(--muted);
-  font-size: 15px;
+  font-size: clamp(13px, 1.35vw, 18px);
+  white-space: nowrap;
 }
 
+/* Alt metin 46 karakter; 380px altında tek satıra sığdırmak puntoyu
+   okunmaz hâle getirirdi. Orada sarmasına izin veriyoruz. */
+@media (max-width: 380px) {
+  .contact-simple p {
+    white-space: normal;
+  }
+}
+
+/* Lacivert zeminde yeşil dolgu: sayfanın en yüksek kontrastlı ögesi
+   ve son vuruşu. Lacivert dolgu, lacivert blokta kaybolurdu. */
 .contact-mail {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--green-soft);
-  border: 1px solid var(--green-line);
-  color: var(--green);
-  font-family: var(--heading);
-  font-size: 16px;
-  font-weight: 600;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
-}
-
-.contact-mail:hover {
+  gap: 12px;
+  margin-top: clamp(10px, 2vh, 22px);
+  padding: 18px clamp(24px, 3vw, 40px);
   background: var(--green);
   color: #04150b;
-  box-shadow: 0 0 30px rgba(39, 229, 127, 0.4);
-  transform: translateY(-2px);
+  font-family: var(--heading);
+  font-size: clamp(15px, 1.5vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    box-shadow 0.16s ease,
+    transform 0.16s ease;
+}
+
+.contact-mail:hover,
+.contact-mail:focus-visible {
+  box-shadow: 0 0 34px rgba(39, 229, 127, 0.4);
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-mail {
+    transition: none;
+  }
+
+  .contact-mail:hover,
+  .contact-mail:focus-visible {
+    transform: none;
+  }
 }

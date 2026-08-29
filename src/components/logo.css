@@ -1,47 +1,31 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* Oran korunuyor (74:44). */
 .logo-ball {
-  width: 52px;
-  height: 31px;
+  display: block;
+  width: 54px;
+  height: 32px;
   flex-shrink: 0;
 }
 
 .logo-word {
-  display: flex;
-  flex-direction: column;
-  transform: skewX(-8deg);
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.06em;
   line-height: 1;
+  /* Menü daralınca marka iki satıra bölünmesin. */
+  white-space: nowrap;
 }
 
 .logo-kiyas {
-  display: flex;
-  align-items: flex-start;
-  font-family: var(--heading);
-  font-weight: 700;
-  font-size: 21px;
-  letter-spacing: 1px;
   color: var(--green);
 }
 
-.logo-bolt-y {
-  width: 14px;
-  height: 26px;
-  margin: 0 1px -11px;
-  fill: var(--green);
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 0 6px rgba(39, 229, 127, 0.45));
-}
-
 .logo-medya {
-  font-family: var(--heading);
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 5.5px;
   color: var(--text);
-  margin-top: 3px;
 }

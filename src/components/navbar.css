@@ -2,29 +2,38 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(4, 7, 15, 0.85);
+  /* Hero laciverte döndüğü için başlık da o zemine oturuyor;
+     neredeyse siyah bir bant lacivertin üstünde yama gibi duruyordu. */
+  background: rgba(12, 20, 48, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
 
 .nav-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 28px;
-  height: 72px;
+  height: var(--nav-h);
+  /* Eskiden .container'ın içindeydi; artık yatay nefesini blok
+     sistemiyle aynı yerden alıyor, böylece logo hero başlığıyla
+     aynı hizada başlıyor. */
+  padding-inline: var(--pad-x);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  /* Izgara ögeleri varsayılan olarak sütunu doldurur (justify-self:
+     stretch). Bağlantı 1fr'lik sol sütunun tamamına yayılıp logonun
+     sağında görünmez ama tıklanabilir bir alan bırakıyordu. */
+  justify-self: start;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-inline: auto;
 }
 
 .nav-links a {
@@ -33,29 +42,13 @@
   font-weight: 500;
   color: var(--muted);
   border-radius: 8px;
-  position: relative;
   transition: color 0.15s ease;
   white-space: nowrap;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a:focus-visible {
   color: var(--text);
-}
-
-.nav-links a.active {
-  color: var(--text);
-}
-
-.nav-links a.active::after {
-  content: '';
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 2px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
 }
 
 .nav-burger {
@@ -76,7 +69,7 @@
 @media (max-width: 1080px) {
   .nav-links {
     position: absolute;
-    top: 72px;
+    top: var(--nav-h);
     left: 0;
     right: 0;
     flex-direction: column;
@@ -93,6 +86,12 @@
 
   .nav-burger {
     display: flex;
-    margin-left: auto;
+    /* Izgara 1fr auto 1fr. Dar ekranda .nav-links ya display:none ya da
+       position:absolute — iki durumda da ızgara ögesi sayılmıyor, bu
+       yüzden otomatik yerleştirme hamburgeri ORTADAKİ sütuna atıyordu.
+       justify-self tek başına onu ortadaki sütunun sağına dayıyor,
+       ekranın sağına değil. Sütunu açıkça yazmak şart. */
+    grid-column: 3;
+    justify-self: end;
   }
 }

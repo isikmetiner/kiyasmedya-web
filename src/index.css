@@ -1,18 +1,35 @@
 :root {
   --bg: #04070f;
-  --bg-soft: #070d1a;
-  --card: #0a1220;
-  --card-2: #0d1628;
   --line: rgba(140, 170, 255, 0.1);
-  --line-strong: rgba(140, 170, 255, 0.18);
   --green: #27e57f;
-  --green-soft: rgba(39, 229, 127, 0.12);
-  --green-line: rgba(39, 229, 127, 0.35);
-  --blue-glow: rgba(58, 130, 255, 0.25);
   --text: #e9eef9;
   --muted: #8b95ac;
   --heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Blok renkleri ----------------------------------------------
+     Sayfa artık ortalanmış tek bir kolon değil, arka arkaya gelen tam
+     genişlikte renk blokları. Üç renk de logodan geliyor; dışarıdan
+     renk almadık.
+
+       lacivert  topun beşgeni ve yamaları
+       krem      topun gövdesi
+       yeşil     hız çizgileri
+
+     Her bloğun kendi mürekkep ve soluk-metin rengi var: krem zeminde
+     açık gri metin okunmaz, o yüzden renk bloğa bağlı. ---------------- */
+  --navy: #0c1430;
+  --cream: #f4f1e8;
+
+  /* Blokların yatay nefesi. Griddy'nin kalıbı: küçük ekranda 20px,
+     büyükte 110px'te duruyor — arada ekranla birlikte büyüyor.
+     Bir şeyi bloğun kenarına dayamak için negatif marjda da bu kullanılır. */
+  --pad-x: clamp(20px, 7vw, 110px);
+
+  /* Yapışkan menünün yüksekliği. Üç yerde geçiyordu (menü çubuğu, dar
+     ekrandaki açılır menünün üst konumu, çapa boşluğu); tek kaynağa
+     bağlandı. */
+  --nav-h: 72px;
 }
 
 * {
@@ -58,121 +75,106 @@ button {
   border: none;
 }
 
-.container {
-  width: min(1200px, 100% - 48px);
-  margin-inline: auto;
+/* Tam genişlikte blok — .container'ın tam tersi. Ortalanmış kolon yok;
+   bölüm ekranın iki kenarına da değiyor, nefesi padding'den geliyor.
+   Bölümler tek tek bu yapıya geçiriliyor. */
+.bleed {
+  padding-inline: var(--pad-x);
 }
 
-/* yapışkan header, anchor ile gelinen bölüm başlığını örtmesin */
-[id] {
-  scroll-margin-top: 84px;
+/* Ana Sayfa dışındaki bloklar birbiriyle aynı yükseklikte. İlk satır
+   hero'nun kendi yüksekliği; sonraki satırlar 1fr olduğu için en uzun
+   bloğun boyunda eşitleniyor. Sayıya bağlı değil — yeni bir bölüm
+   eklenince o da aynı satıra oturur. */
+main {
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-rows: 1fr;
 }
 
-/* ---- shared bits ---- */
+/* ==================================================================
+   BLOK SİSTEMİ
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 24px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    background 0.15s ease;
-}
+   Sayfa, arka arkaya gelen tam genişlikte renk bloklarından oluşuyor.
+   Her blok kendi zeminini VE kendi mürekkebini taşıyor.
 
-.btn:hover {
-  transform: translateY(-1px);
-}
+   İşin püf noktası: blok, --text / --muted / --line gibi jetonları
+   KENDİ İÇİNDE yeniden tanımlıyor. Kartlar zaten var(--text) okuduğu
+   için krem zemine geçen bir bölümde kart metinleri kendiliğinden
+   koyuya dönüyor — tek tek elle renk vermeye gerek kalmıyor.
 
-.btn-green {
-  background: var(--green);
-  color: #04150b;
-  box-shadow: 0 0 24px rgba(39, 229, 127, 0.35);
-}
+   Blokların sırası (açık/koyu dönüşümlü):
+     Hero            lacivert
+     Kıyas Podcast   krem
+     Kıyas Lig       lacivert
+     Hakkımızda      krem
+     İletişim        lacivert
+     Footer          koyu
+   ================================================================== */
 
-.btn-green:hover {
-  box-shadow: 0 0 36px rgba(39, 229, 127, 0.5);
-}
-
-.btn-ghost {
-  background: transparent;
+.blok {
+  position: relative;
+  overflow: hidden;
+  padding-inline: var(--pad-x);
+  padding-block: clamp(72px, 10vh, 132px);
+  /* Mürekkebi blok düzeyinde yeniden bağlıyoruz. color kalıtımla iner ve
+     var(--text)'i bir daha çözmez; bu satır olmadan krem bloktaki her
+     metin (rengini açıkça yazmayanlar) gövdeden gelen beyazı miras alıp
+     zeminde kayboluyordu. */
   color: var(--text);
-  border: 1px solid var(--line-strong);
 }
 
-.btn-ghost:hover {
-  border-color: var(--green-line);
-  background: var(--green-soft);
+.blok-lacivert {
+  background: var(--navy);
 }
 
-.section {
-  padding: 36px 0;
+/* Açık zeminde koyu metin. Jeton adları aynı kalıyor, değerleri
+   değişiyor — bileşenlerin hiçbiri bunu bilmek zorunda değil. */
+.blok-krem {
+  background: var(--cream);
+  --text: #0c1430;
+  --muted: #5d6474;
+  --line: rgba(12, 20, 48, 0.14);
 }
 
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 32px;
+.blok-krem h1,
+.blok-krem h2,
+.blok-krem h3,
+.blok-krem h4 {
+  color: #0c1430;
 }
 
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ---- blok başlığı: hero'daki numara + etiket kalıbının devamı ---- */
+
+.blok-index {
   font-family: var(--heading);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.section-title .dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green);
-  flex-shrink: 0;
-}
-
-.section-link {
-  color: var(--muted);
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.15s ease;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 clamp(18px, 2.5vh, 28px);
 }
 
-.section-link:hover {
+/* Bölüm başlıkları da hero ölçeğine yaklaşıyor — küçük bir etiket
+   değil, bloğun kapağı. */
+.blok-baslik {
+  font-size: clamp(32px, 5.2vw, 76px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  margin: 0 0 clamp(28px, 4vh, 52px);
+  max-width: 18ch;
+}
+
+.blok-baslik em {
+  font-style: italic;
   color: var(--green);
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  background: rgba(4, 10, 20, 0.75);
-  border: 1px solid var(--line-strong);
-  color: var(--text);
-  backdrop-filter: blur(6px);
-}
-
-.badge-green {
-  background: var(--green);
-  border-color: var(--green);
-  color: #04150b;
+/* Yapışkan menü çapayla gidilen bölümün başlığını örtmesin. Seçici
+   [id] idi — id'si olan HER ögeyi kapsıyordu; hedef zaten bölümler. */
+section[id] {
+  scroll-margin-top: calc(var(--nav-h) + 8px);
 }

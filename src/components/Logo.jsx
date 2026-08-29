@@ -1,6 +1,6 @@
 import './logo.css'
 
-/* Hız çizgili top işareti — Kıyas Podcast logosundaki topun sadeleştirilmiş hali */
+/* Hız çizgili top işareti — Kıyas Podcast logosundaki topun sade hali. */
 function BallMark() {
   return (
     <svg className="logo-ball" viewBox="0 0 74 44" aria-hidden="true">
@@ -21,26 +21,14 @@ function BallMark() {
   )
 }
 
-/* Y harfi — kolları normal, gövdesi şimşek olarak satır altına uzanıyor */
-function BoltY() {
-  return (
-    <svg className="logo-bolt-y" viewBox="0 0 34 62" aria-hidden="true">
-      <polygon points="0,0 11,0 17,10 23,0 34,0 23,17 12,17" />
-      <polygon points="12,15 24,15 17,30 23,30 6,54 12,35 6,35" />
-    </svg>
-  )
-}
-
 export default function Logo() {
   return (
     <span className="logo">
       <BallMark />
       <span className="logo-word">
-        <span className="logo-kiyas">
-          KI
-          <BoltY />
-          AS
-        </span>
+        {/* Aradaki boşluk {' '} ile yazılı: JSX, ayrı satırlara düşen
+            ögeler arasındaki boşluğu siliyor. */}
+        <span className="logo-kiyas">KIYAS</span>{' '}
         <span className="logo-medya">MEDYA</span>
       </span>
     </span>

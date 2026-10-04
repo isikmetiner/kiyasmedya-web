@@ -7,15 +7,20 @@
     <title>922 — Gizlilik Politikası | Kıyas Medya</title>
     <meta
       name="description"
-      content="922 mobil uygulamasının gizlilik politikası. Uygulama hiçbir kişisel veri toplamaz."
+      content="922 mobil uygulamasının gizlilik politikası. Oynamak için hesap gerekmez; kişisel veri yalnızca hesap açmayı seçerseniz saklanır."
     />
     <link rel="canonical" href="https://kiyasmedya.com/922/gizlilik/" />
+    <link rel="alternate" hreflang="tr" href="https://kiyasmedya.com/922/gizlilik/" />
+    <link rel="alternate" hreflang="en" href="https://kiyasmedya.com/922/privacy/" />
 
     <!--
       Bu sayfa bilerek statik ve kendi kendine yeter: React uygulamasindan
       bagimsiz, JavaScript gerektirmez. Magaza denetcileri ve otomatik
       taraycilar her kosulda acabilmeli; site yeniden yazilsa bile bu adres
       calismaya devam etmeli.
+
+      Ingilizcesi /922/privacy/ adresinde. Iki sayfa ayni seyi soylemeli:
+      biri degisirse digeri ayni commit'te degisir, iki tarih birlikte ilerler.
     -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,13 +69,21 @@
         text-decoration: underline;
       }
 
-      .geri {
-        display: inline-block;
-        font-size: 14px;
-        color: var(--muted);
+      .ust {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
         margin-bottom: 40px;
       }
-      .geri:hover {
+
+      .geri,
+      .dil {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .geri:hover,
+      .dil:hover {
         color: var(--text);
       }
 
@@ -142,7 +155,10 @@
 
   <body>
     <main class="wrap">
-      <a class="geri" href="/">← Kıyas Medya</a>
+      <div class="ust">
+        <a class="geri" href="/">← Kıyas Medya</a>
+        <a class="dil" href="/922/privacy/" hreflang="en" lang="en">English</a>
+      </div>
 
       <p class="ust-bilgi">Son güncelleme: 9 Eylül 2026</p>
       <h1>922 — Gizlilik Politikası</h1>

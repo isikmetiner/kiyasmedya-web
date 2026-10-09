@@ -1,0 +1,117 @@
+/* 922 — krem blok. Solda tanıtım, sağda oyundan üç ekran.
+
+   Bütün bloklar en uzun bloğun boyunda (index.css, main ızgarası). Bu
+   blok görsel taşıyan tek blok; telefonların yüksekliği bu yüzden ekran
+   yüksekliğine bağlı ve tavanlı — yoksa diğer dört bloğu da uzatırdı. */
+
+/* Panel kendi genişliğiyle sınırlı ve ortalı (Podcast listesindeki gibi);
+   etiket sol üstte kalıyor. Sınır olmadan geniş ekranda metin sola,
+   telefonlar sağa yapışıyor, arada boş bir krem alan kalıyordu. */
+.oyun-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(32px, 4vw, 72px);
+  align-items: center;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.oyun-metin .blok-baslik {
+  margin-bottom: clamp(18px, 2.6vh, 30px);
+  max-width: 12ch;
+}
+
+.oyun-aciklama {
+  color: var(--muted);
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+/* Kıyas Lig'deki "Çok Yakında" ile aynı haber, burada küçük bir etiket:
+   başlık oyunun kendisini anlatıyor. */
+.oyun-durum {
+  display: inline-block;
+  margin-top: clamp(18px, 2.6vh, 28px);
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+}
+
+/* ---- telefonlar ------------------------------------------------- */
+
+.oyun-ekranlar {
+  /* Ortadaki telefonun yüksekliği; yandakiler bundan türüyor. */
+  --tel-h: clamp(290px, 38vh, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Çerçeve lacivert: ekran görüntülerinin zemini koyu, krem blokta
+   lacivert kenar onları telefon gibi topluyor. */
+.oyun-telefon {
+  margin: 0;
+  height: calc(var(--tel-h) * 0.86);
+  aspect-ratio: 780 / 1688;
+  padding: 5px;
+  border-radius: 26px;
+  background: var(--navy);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 40px -18px rgba(12, 20, 48, 0.55);
+  overflow: hidden;
+}
+
+.oyun-telefon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 21px;
+}
+
+/* Yandakiler ortadakinin arkasına biraz giriyor; ortadaki önde ve büyük. */
+.oyun-telefon:first-child {
+  margin-right: -14px;
+}
+
+.oyun-telefon:last-child {
+  margin-left: -14px;
+}
+
+.oyun-telefon.ana {
+  position: relative;
+  z-index: 1;
+  height: var(--tel-h);
+  border-radius: 30px;
+}
+
+.oyun-telefon.ana img {
+  border-radius: 25px;
+}
+
+/* ---- dar ekran: metin üstte, telefonlar altta ---- */
+
+@media (max-width: 860px) {
+  .oyun-panel {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vh, 40px);
+  }
+
+  .oyun-metin .blok-baslik {
+    max-width: none;
+  }
+
+  /* Üç telefon yan yana sığsın: yükseklik ekran genişliğinden. Oran
+     780/1688 ≈ 0.46; ortadaki + iki yandaki (0.86) eksi örtüşme. */
+  .oyun-ekranlar {
+    --tel-h: min(230px, calc((100vw - 2 * var(--pad-x) + 28px) / (0.462 * 2.72)));
+  }
+}

@@ -36,8 +36,9 @@
   }
 }
 
-/* Lacivert zeminde yeşil dolgu: sayfanın en yüksek kontrastlı ögesi
-   ve son vuruşu. Lacivert dolgu, lacivert blokta kaybolurdu. */
+/* Yeşil dolgu, koyu yazı: sayfanın son vuruşu. Blok 922 eklenince
+   kreme döndü; dolgu parlak yeşilde kalıyor (yazısı koyu, iki zeminde de
+   okunuyor) — koyulaşan yalnızca yeşil METİN (--green-ink). */
 .contact-mail {
   display: inline-flex;
   align-items: center;

@@ -6,6 +6,7 @@ const LINKS = [
   { label: 'Ana Sayfa', id: 'ana-sayfa' },
   { label: 'Kıyas Podcast', id: 'kiyas-podcast' },
   { label: 'Kıyas Lig', id: 'kiyas-lig' },
+  { label: '922', id: '922' },
   { label: 'Hakkımızda', id: 'hakkimizda' },
   { label: 'İletişim', id: 'iletisim' },
 ]

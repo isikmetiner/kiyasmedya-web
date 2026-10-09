@@ -3,7 +3,7 @@ import './contact.css'
 
 export default function Contact() {
   return (
-    <section className="blok blok-lacivert" id="iletisim">
+    <section className="blok blok-krem" id="iletisim">
       <p className="blok-index">İletişim</p>
 
       <div className="contact-simple">

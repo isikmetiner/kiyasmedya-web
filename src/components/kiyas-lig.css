@@ -22,7 +22,7 @@
      metin kısa ve ortalı. */
   margin: 0 0 clamp(16px, 2.4vh, 26px);
   max-width: none;
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 .lig-aciklama {

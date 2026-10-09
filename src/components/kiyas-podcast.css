@@ -96,7 +96,7 @@
 
 .podcast-ok:hover,
 .podcast-ok:focus-visible {
-  color: var(--green);
+  color: var(--green-ink);
   transform: translateX(4px);
 }
 

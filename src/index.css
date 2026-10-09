@@ -2,6 +2,10 @@
   --bg: #04070f;
   --line: rgba(140, 170, 255, 0.1);
   --green: #27e57f;
+  /* Yeşil METİN için. Lacivertte parlak yeşilin kendisi; krem blok bunu
+     koyulaştırıyor (aşağıda) — parlak yeşil kremde okunmuyor. Dolgular
+     (iletişim düğmesi) --green'de kalıyor, onların yazısı zaten koyu. */
+  --green-ink: var(--green);
   --text: #e9eef9;
   --muted: #8b95ac;
   --heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
@@ -107,9 +111,13 @@ main {
      Hero            lacivert
      Kıyas Podcast   krem
      Kıyas Lig       lacivert
-     Hakkımızda      krem
-     İletişim        lacivert
+     922             krem
+     Hakkımızda      lacivert
+     İletişim        krem
      Footer          koyu
+
+   Araya bölüm girince arkasındakilerin rengi yer değiştirir; sıra
+   bölümlere değil, konuma bağlı.
    ================================================================== */
 
 .blok {
@@ -135,6 +143,8 @@ main {
   --text: #0c1430;
   --muted: #5d6474;
   --line: rgba(12, 20, 48, 0.14);
+  /* Kremde 4.9:1 — parlak yeşil burada 1.4:1 kalıyordu. */
+  --green-ink: #0b7a40;
 }
 
 .blok-krem h1,
@@ -170,7 +180,7 @@ main {
 
 .blok-baslik em {
   font-style: italic;
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 /* Yapışkan menü çapayla gidilen bölümün başlığını örtmesin. Seçici

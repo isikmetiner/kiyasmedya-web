@@ -2,7 +2,7 @@ import './about.css'
 
 export default function About() {
   return (
-    <section className="blok blok-krem" id="hakkimizda">
+    <section className="blok blok-lacivert" id="hakkimizda">
       <p className="blok-index">Hakkımızda</p>
 
       <div className="about-panel">

@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>922 — Hesap Silme | Kıyas Medya</title>
+    <meta name="description" content="922 hesabınızı ve verilerinizi silin: web üzerinden, uygulama içinden ya da e-postayla." />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://kiyasmedya.com/922/hesap-sil/" />
+    <link rel="alternate" hreflang="tr" href="https://kiyasmedya.com/922/hesap-sil/" />
+    <link rel="alternate" hreflang="en" href="https://kiyasmedya.com/922/account-deletion/" />
+    <!--
+      Google Play'in istedigi web'den hesap silme sayfasi. Turkcesi /922/hesap-sil/,
+      Ingilizcesi /922/account-deletion/; ikisi ayni seyi soyler, ayni commit'te
+      degisir (kaynak: scratchpad'deki hesap-sil-uret.mjs ile uretildi, elle de
+      duzenlenebilir).
+      Akis: e-posta + parola → POST /api/auth/login → onay ekrani → DELETE /api/me
+      (parola sunucuda bir kez daha dogrulanir). Jeton yalnizca bellekte tutulur;
+      sayfa kapaninca kaybolur. Sunucu bu alan adina CORS ile izin veriyor
+      (922-api appsettings.json Cors:Origins).
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #04070f;
+        --text: #e9eef9;
+        --muted: #8b95ac;
+        --green: #27e57f;
+        --line: rgba(140, 170, 255, 0.12);
+        --heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+        --body: 'Inter', system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--body);
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: clamp(32px, 8vw, 88px) clamp(20px, 6vw, 40px) 96px;
+      }
+
+      a {
+        color: var(--green);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .ust {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .geri,
+      .dil {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .geri:hover,
+      .dil:hover {
+        color: var(--text);
+      }
+
+      h1 {
+        font-family: var(--heading);
+        font-weight: 700;
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0 0 12px;
+      }
+
+      h2 {
+        font-family: var(--heading);
+        font-weight: 500;
+        font-size: clamp(19px, 3.4vw, 23px);
+        letter-spacing: -0.01em;
+        margin: 44px 0 12px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .ust-bilgi {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0 0 8px;
+      }
+
+      .ozet {
+        color: var(--text);
+        font-size: clamp(17px, 2.6vw, 19px);
+        line-height: 1.6;
+        margin: 24px 0 0;
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--green);
+        border-radius: 4px;
+        background: rgba(39, 229, 127, 0.04);
+      }
+
+      p {
+        color: var(--muted);
+        margin: 0 0 14px;
+      }
+
+      strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      ul {
+        color: var(--muted);
+        padding-left: 22px;
+        margin: 0 0 14px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+
+      footer {
+        margin-top: 56px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+    
+      .kart {
+        margin: 20px 0 8px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(140, 170, 255, 0.04);
+      }
+      label {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+        margin: 0 0 6px;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        font: inherit;
+        color: var(--text);
+        background: #0b1120;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin: 0 0 16px;
+      }
+      input:focus {
+        outline: none;
+        border-color: var(--green);
+      }
+      button {
+        font: inherit;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 12px 18px;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+      }
+      button[disabled] {
+        opacity: 0.55;
+        cursor: wait;
+      }
+      .birincil {
+        background: var(--green);
+        border-color: var(--green);
+        color: #04110a;
+      }
+      .tehlike {
+        background: #e5484d;
+        border-color: #e5484d;
+        color: #fff;
+      }
+      .dugmeler {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hata {
+        color: #ff8a8f;
+        margin: 0 0 14px;
+      }
+      .tamam {
+        color: var(--green);
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap">
+      <div class="ust">
+        <a class="geri" href="/">← Kıyas Medya</a>
+        <a class="dil" href="/922/account-deletion/" hreflang="en" lang="en">English</a>
+      </div>
+
+      <p class="ust-bilgi">Son güncelleme: 19 Ekim 2026</p>
+      <h1>922 — Hesap Silme</h1>
+      <p class="ust-bilgi">Uygulama: 922 &nbsp;·&nbsp; Geliştirici: KIYAS MEDYA</p>
+
+      <p class="ozet">
+        922 hesabınızı ve sunucudaki bütün verilerinizi bu sayfadan ya da uygulamanın
+        içinden kalıcı olarak silebilirsiniz. Silme işlemi geri alınamaz.
+      </p>
+
+      <h2>Bu sayfadan silmek</h2>
+
+      <form class="kart" id="giris" novalidate>
+        <p>Uygulamada giriş yaptığınız e-posta adresi ve parolayla devam edin.</p>
+        <label for="eposta">E-posta</label>
+        <input id="eposta" type="email" autocomplete="username" required />
+        <label for="parola">Parola</label>
+        <input id="parola" type="password" autocomplete="current-password" required />
+        <p class="hata" id="hata1" hidden></p>
+        <div class="dugmeler">
+          <button class="birincil" type="submit" id="devam">Devam</button>
+        </div>
+      </form>
+
+      <div class="kart" id="onay" hidden>
+        <p><strong>Emin misiniz?</strong></p>
+        <p id="onayMetni"></p>
+        <p class="hata" id="hata2" hidden></p>
+        <div class="dugmeler">
+          <button class="tehlike" type="button" id="sil">Hesabımı kalıcı olarak sil</button>
+          <button type="button" id="vazgec">Vazgeç</button>
+        </div>
+      </div>
+
+      <div class="kart" id="bitti" hidden>
+        <p class="tamam"><strong>Hesabınız silindi</strong></p>
+        <p>Hesabınız ve sunucudaki bütün verileriniz silindi. Uygulamayı telefonunuzda kullanmaya devam ederseniz oturumunuz kapanır; isterseniz hesap açmadan oynamaya devam edebilirsiniz.</p>
+      </div>
+
+      <h2>Uygulama içinden silmek</h2>
+      <p>
+        922 uygulamasında <strong>Profil → Hesap → Hesabı sil</strong> yolunu izleyin
+        ve parolanızı girin. Hesabınız hemen silinir.
+      </p>
+
+      <h2>Parolanızı hatırlamıyorsanız</h2>
+      <p>
+        Uygulamada giriş ekranındaki <strong>Şifremi unuttum</strong> ile yeni parola
+        belirleyebilir ya da hesabınızın e-posta adresinden
+        <a href="mailto:contact@kiyasmedya.com?subject=922%20hesap%20silme">contact@kiyasmedya.com</a>
+        adresine <strong>“922 hesap silme”</strong> konulu bir e-posta gönderebilirsiniz.
+        E-postayla gelen talepleri <strong>30 gün içinde</strong> yerine getirir ve
+        size yanıt veririz. E-posta adresi doğrulanmamış hesaplar için de bu yolu
+        kullanın.
+      </p>
+
+      <h2>Silinen veriler</h2>
+      <ul>
+        <li>E-posta adresiniz, görünen adınız, oyuncu kodunuz ve parolanızın özeti</li>
+        <li>Rütbe avatarı seçiminiz ve memleketiniz</li>
+        <li>Oyun kayıtlarınız ve dereceli oyunlarınızdaki cevaplar</li>
+        <li>Puanlarınız (Elo, Kıyas Puanı), rütbeniz, serileriniz ve sezon sonuçlarınız</li>
+        <li>Düellolarınız ve düello cevaplarınız</li>
+        <li>Arkadaşlıklarınız ve bekleyen arkadaş istekleriniz</li>
+      </ul>
+      <p>
+        Hesabınız silindikten sonra adınız liderlik tablolarında ve diğer oyuncuların
+        düello ve arkadaş listelerinde görünmez.
+      </p>
+
+      <h2>Saklanan veriler ve süreler</h2>
+      <p>
+        Sunucunun gece alınan yedeklerinde verileriniz <strong>en fazla 14 gün</strong>
+        daha kalır; bu süre sonunda yedekler de silinir. Yedekler yalnızca bir arıza
+        durumunda veritabanını geri yüklemek için kullanılır.
+      </p>
+      <p>
+        Hesap açmadan oynarken telefonunuzda tutulan rekorlar ve ayarlar sunucuya
+        gönderilmez; bunlar uygulamayı sildiğinizde telefonunuzdan kaldırılır.
+      </p>
+      <p>
+        Reklamlarla ilgili veriler Google tarafından toplanır ve bizim
+        sunucumuzda tutulmaz; bunlar için
+        <a href="/922/gizlilik/">gizlilik politikasındaki</a> Reklamlar bölümüne
+        bakın.
+      </p>
+
+      <h2>İletişim</h2>
+      <p>
+        Sorularınız için:
+        <a href="mailto:contact@kiyasmedya.com">contact@kiyasmedya.com</a>
+      </p>
+
+      <footer>KIYAS MEDYA · <a href="/">kiyasmedya.com</a> · <a href="/922/gizlilik/">Gizlilik politikası</a></footer>
+    </main>
+
+    <script>
+      (function () {
+        // Sunucu adresi. Yalnizca yerel denemede ?api= ile degistirilebilir.
+        var API = 'https://922.kiyasmedya.com';
+        var q = new URLSearchParams(location.search).get('api');
+        if (q && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) API = q;
+
+        var T = {"errors":{"400":"Bu hesabın e-posta adresi doğrulanmamış. Silme talebi için aşağıdaki adrese yazın.","401":"E-posta veya parola hatalı.","429":"Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar deneyin.","net":"Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.","other":"Bir hata oluştu. Tekrar deneyin ya da aşağıdaki adrese yazın."}};
+        var confirmText = (name, email) =>
+      `<strong>${name}</strong> (${email}) hesabı ve aşağıda listelenen bütün veriler kalıcı olarak silinecek. Bu işlem geri alınamaz.`;
+        var $ = function (id) { return document.getElementById(id); };
+        var token = null, password = null;
+
+        function esc(s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+          });
+        }
+        function show(id) {
+          ['giris', 'onay', 'bitti'].forEach(function (x) { $(x).hidden = x !== id; });
+        }
+        function error(el, status) {
+          el.textContent = T.errors[status] || T.errors.other;
+          el.hidden = false;
+        }
+        function forget() {
+          token = null; password = null;
+          $('parola').value = '';
+        }
+
+        $('giris').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = $('eposta').value.trim(), pw = $('parola').value;
+          if (!email || !pw) return;
+          $('hata1').hidden = true;
+          $('devam').disabled = true;
+          fetch(API + '/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: pw }),
+          })
+            .then(function (r) {
+              if (!r.ok) { error($('hata1'), r.status); return null; }
+              return r.json();
+            })
+            .then(function (d) {
+              if (!d) return;
+              token = d.token; password = pw;
+              $('onayMetni').innerHTML = confirmText(esc(d.user.displayName), esc(d.user.email));
+              $('hata2').hidden = true;
+              show('onay');
+            })
+            .catch(function () { error($('hata1'), 'net'); })
+            .then(function () { $('devam').disabled = false; });
+        });
+
+        $('vazgec').addEventListener('click', function () {
+          forget();
+          show('giris');
+        });
+
+        $('sil').addEventListener('click', function () {
+          $('sil').disabled = true;
+          $('hata2').hidden = true;
+          fetch(API + '/api/me', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify({ password: password }),
+          })
+            .then(function (r) {
+              if (!r.ok) { error($('hata2'), r.status); return; }
+              forget();
+              $('eposta').value = '';
+              show('bitti');
+            })
+            .catch(function () { error($('hata2'), 'net'); })
+            .then(function () { $('sil').disabled = false; });
+        });
+      })();
+    </script>
+  </body>
+</html>

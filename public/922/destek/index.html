@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>922 — Destek | Kıyas Medya</title>
+    <meta
+      name="description"
+      content="922 mobil uygulaması için destek: sık sorulan sorular, hesap, şifre, hesap silme, bildirme ve engelleme, iletişim."
+    />
+    <link rel="canonical" href="https://kiyasmedya.com/922/destek/" />
+
+    <!--
+      Magazalara "destek adresi" olarak verilen sayfa. Gizlilik sayfasi gibi
+      statik ve JavaScript'siz; stil oradan kopyalandi. Uygulama yalnizca
+      Turkiye'de yayinda oldugu icin Ingilizcesi yok.
+      Sorular uygulamadaki "Nasil oynanir?" (src/game/constants.ts
+      HELP_SECTIONS) ile celismemeli.
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #04070f;
+        --text: #e9eef9;
+        --muted: #8b95ac;
+        --green: #27e57f;
+        --line: rgba(140, 170, 255, 0.12);
+        --heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+        --body: 'Inter', system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--body);
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: clamp(32px, 8vw, 88px) clamp(20px, 6vw, 40px) 96px;
+      }
+
+      a {
+        color: var(--green);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .ust {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .geri,
+      .dil {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .geri:hover,
+      .dil:hover {
+        color: var(--text);
+      }
+
+      h1 {
+        font-family: var(--heading);
+        font-weight: 700;
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0 0 12px;
+      }
+
+      h2 {
+        font-family: var(--heading);
+        font-weight: 500;
+        font-size: clamp(19px, 3.4vw, 23px);
+        letter-spacing: -0.01em;
+        margin: 44px 0 12px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .ust-bilgi {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0 0 8px;
+      }
+
+      .ozet {
+        color: var(--text);
+        font-size: clamp(17px, 2.6vw, 19px);
+        line-height: 1.6;
+        margin: 24px 0 0;
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--green);
+        border-radius: 4px;
+        background: rgba(39, 229, 127, 0.04);
+      }
+
+      p {
+        color: var(--muted);
+        margin: 0 0 14px;
+      }
+
+      strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      ul {
+        color: var(--muted);
+        padding-left: 22px;
+        margin: 0 0 14px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+
+      footer {
+        margin-top: 56px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      details {
+        border-bottom: 1px solid var(--line);
+        padding: 4px 0;
+      }
+      details[open] {
+        padding-bottom: 10px;
+      }
+      summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 12px 28px 12px 0;
+        color: var(--text);
+        font-weight: 600;
+        position: relative;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      summary::after {
+        content: '+';
+        position: absolute;
+        right: 4px;
+        top: 10px;
+        color: var(--green);
+        font-family: var(--heading);
+        font-size: 20px;
+      }
+      details[open] summary::after {
+        content: '−';
+      }
+      details p,
+      details ul {
+        margin-top: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap">
+      <div class="ust">
+        <a class="geri" href="/">← Kıyas Medya</a>
+      </div>
+
+      <h1>922 — Destek</h1>
+      <p class="ust-bilgi">Uygulama: 922 — Türkiye İlçe Oyunu &nbsp;·&nbsp; Geliştirici: KIYAS MEDYA</p>
+
+      <p class="ozet">
+        Bir sorun mu yaşıyorsun ya da bir önerin mi var? Aşağıdaki sık sorulan
+        sorulara bak; cevabını bulamazsan
+        <a href="mailto:contact@kiyasmedya.com?subject=922%20destek">contact@kiyasmedya.com</a>
+        adresine yaz.
+      </p>
+
+      <h2>Oyun</h2>
+
+      <details>
+        <summary>Nasıl oynanır?</summary>
+        <p>
+          İki oyun var. <strong>İlçe Bilmece</strong>'de bir ilçe gösterilir, hangi
+          ilde olduğunu bulursun. <strong>Tek Nefeste 922!</strong>'de bir ilçe adı
+          çıkar, süre dolmadan Türkiye haritasında yerine dokunursun. Kurallar,
+          zorluklar, jokerler ve puanlama uygulamadaki
+          <strong>Nasıl oynanır?</strong> ekranında anlatılıyor.
+        </p>
+      </details>
+
+      <details>
+        <summary>Oynamak için hesap açmam gerekiyor mu?</summary>
+        <p>
+          Hayır. Hesapsız da oynayabilirsin; bu oyunlar puansızdır ve internet
+          gerektirmez. Dereceli oyun, rütbe, liderlik tablosu, arkadaşlar ve
+          düellolar için hesap gerekir.
+        </p>
+      </details>
+
+      <details>
+        <summary>Rütbem neden değişmedi?</summary>
+        <p>
+          Rütbe yalnızca <strong>dereceli</strong> oyunlarla ve rastgele düellolarla
+          değişir. "Puansız" seçtiğin oyunlar, hesapsız oyunlar ve arkadaş
+          düelloları rütbeye yazılmaz. Dereceli oyun için hesap ve internet
+          gerekir; yarıda bırakılan dereceli oyun kaybedilmiş sayılır.
+        </p>
+      </details>
+
+      <details>
+        <summary>Rakibim düelloyu oynamadı, ne olacak?</summary>
+        <p>
+          Düellolar eşzamanlı değil; herkes kendi vaktinde oynar. Arkadaş
+          düellosu 7 gün içinde oynanmazsa düşer. Rastgele düelloyu süresi
+          içinde bitirmeyen taraf kaybetmiş sayılır.
+        </p>
+      </details>
+
+      <h2>Hesap</h2>
+
+      <details>
+        <summary>Doğrulama kodu gelmedi</summary>
+        <p>
+          Kod birkaç dakika içinde gelir. Gelmediyse e-posta kutundaki
+          <strong>Spam / Gereksiz</strong> klasörüne bak ve adresi doğru yazdığından
+          emin ol. Yine de gelmediyse kayıt olduğun adresle bize yaz.
+        </p>
+      </details>
+
+      <details>
+        <summary>Şifremi unuttum</summary>
+        <p>
+          Giriş ekranında <strong>Şifremi unuttum</strong>'a dokun, hesabının
+          e-posta adresini gir. Gelen 6 haneli kodla yeni şifreni belirlersin.
+        </p>
+      </details>
+
+      <details>
+        <summary>Görünen adımı ya da şifremi nasıl değiştiririm?</summary>
+        <p>
+          <strong>Profil → Görünen adı değiştir</strong> ya da
+          <strong>Profil → Şifre değiştir</strong>. Küfür, hakaret ya da resmî
+          hesap izlenimi veren adlar alınamaz.
+        </p>
+      </details>
+
+      <details>
+        <summary>Hesabımı nasıl silerim?</summary>
+        <p>
+          Uygulamada <strong>Profil → Hesabı sil</strong>. Hesabın ve sunucudaki
+          bütün oyun kayıtların kalıcı olarak silinir; bu işlem geri alınamaz.
+          Uygulama telefonunda yoksa
+          <a href="/922/hesap-sil/">kiyasmedya.com/922/hesap-sil</a> sayfasından
+          e-posta adresin ve şifrenle silebilirsin.
+        </p>
+      </details>
+
+      <h2>Diğer oyuncular</h2>
+
+      <details>
+        <summary>Uygunsuz adlı ya da hile yapan bir oyuncuyu nasıl bildiririm?</summary>
+        <p>
+          Liderlik tablosunda, düello dökümünde ya da arkadaş listende oyuncunun
+          adına dokun ve <strong>Bildir</strong>'i seç. Bildirimleri inceleyip
+          gerekirse adını değiştiriyor ya da hesabını kapatıyoruz. Bildirilen
+          oyuncuya kimin bildirdiği söylenmez.
+        </p>
+      </details>
+
+      <details>
+        <summary>Bir oyuncuyu nasıl engellerim?</summary>
+        <p>
+          Aynı yerden <strong>Engelle</strong>'yi seç. Engellediğin oyuncu sana
+          arkadaşlık isteği gönderemez, rastgele düelloda karşına çıkmaz ve adı sana
+          tablolarda gizli görünür. Engellediklerini
+          <strong>Profil → Engellenen oyuncular</strong>'dan kaldırabilirsin.
+        </p>
+      </details>
+
+      <h2>Reklamlar ve gizlilik</h2>
+
+      <details>
+        <summary>Uygulamada hangi reklamlar var?</summary>
+        <p>
+          Ana menüde ve oyun sonunda banner reklam gösterilir. Ödüllü reklamlar
+          isteğe bağlıdır: puansız oyunlarda ek joker, ipucu ya da hata silme
+          karşılığında izlemeyi sen seçersin. Dereceli oyunlarda reklamla ek hak
+          verilmez. Uygulama içi satın alma yoktur.
+        </p>
+      </details>
+
+      <details>
+        <summary>Hangi verilerimi topluyorsunuz?</summary>
+        <p>
+          Ayrıntısı <a href="/922/gizlilik/">gizlilik politikasında</a>. Kısaca:
+          hesapsız oynarken bize kişisel verin ulaşmaz; hesap açarsan e-posta
+          adresin, görünen adın ve oyun kayıtların saklanır. Konumuna erişmeyiz,
+          verilerini satmayız.
+        </p>
+      </details>
+
+      <h2>Bize ulaş</h2>
+      <p>
+        <a href="mailto:contact@kiyasmedya.com?subject=922%20destek">contact@kiyasmedya.com</a>
+      </p>
+      <p>
+        Bir hata bildiriyorsan telefonunun modelini, ne yaptığında olduğunu ve
+        hesabın varsa görünen adını yazarsan daha çabuk çözeriz. Şifreni asla
+        yazma; ihtiyacımız olmaz.
+      </p>
+
+      <footer>
+        KIYAS MEDYA · <a href="/">kiyasmedya.com</a> ·
+        <a href="/922/gizlilik/">Gizlilik</a> ·
+        <a href="/922/hesap-sil/">Hesap silme</a>
+      </footer>
+    </main>
+  </body>
+</html>

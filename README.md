@@ -70,13 +70,28 @@ yazılı. Alan adı değişirse orayı da güncelleyin.
 
 ## Yayın
 
-Site GitHub Pages'te. `main`'e her push, `.github/workflows/deploy.yml`
-iş akışını tetikler: `npm ci` → `npm run lint` → `npm run build` → `dist/`
-Pages'e yüklenir. Lint hata verirse yayın durur.
+Site 922 API'siyle aynı sunucuda (92.205.19.254, ssh adı `kiyas`), nginx
+ile durağan dosya olarak sunuluyor. 25 Ekim 2026'ya kadar GitHub Pages'teydi.
 
-Alan adı `public/CNAME` dosyasında yazılı; `public/` içeriği `dist/`e
-olduğu gibi kopyalandığı için her derlemede yerinde kalır. Alan adı
-değişirse burayı, `index.html`'deki mutlak adresleri, `robots.txt`'yi ve
-`sitemap.xml`'i birlikte güncelleyin.
+```bash
+bash dagitim/yayinla.sh
+```
 
-Elle tetiklemek için: Actions sekmesi → Yayınla → Run workflow.
+Betik `npm run lint` → `npm run build` çalıştırır, `dist/`i sunucuda
+`/var/www/kiyasmedya-web`'e tek hamlede koyar. Önceki sürüm
+`/var/www/kiyasmedya-web.onceki`'de kalır; geri almak için iki klasörün
+adını değiştirmek yeter. `main`'e push etmek artık yayınlamaz.
+
+- **nginx:** `dagitim/nginx-kiyasmedya.conf` (sunucuda
+  `/etc/nginx/sites-available/kiyasmedya`). Elle yazılmış; http'nin tamamı
+  ve `www` → `https://kiyasmedya.com`.
+- **Sertifika:** Let's Encrypt, **webroot** (`/var/www/letsencrypt`) ile;
+  certbot nginx dosyasına dokunmuyor, yenilemede nginx'i yeniden yüklüyor.
+- **DNS (GoDaddy):** `A @ → 92.205.19.254`, `CNAME www → @`. E-posta
+  kayıtlarına dokunmayın.
+- `.github/workflows/deploy.yml` Pages döneminden kalma ve **kapatıldı**
+  (Actions'ta "disabled"). Silinmesi GitHub arayüzünden yapılmalı; gh jetonunun
+  iş akışı dosyalarını değiştirme izni yok.
+
+Alan adı değişirse `index.html`'deki mutlak adresleri, `robots.txt`'yi,
+`sitemap.xml`'i ve nginx dosyasını birlikte güncelleyin.
